@@ -26,6 +26,7 @@ module.exports = {
       filename: 'index.html', // название выходного файла
     }),
     new CleanWebpackPlugin(),
+
     // new HotModuleReplacement(),
   ],
   module: {
@@ -49,6 +50,10 @@ module.exports = {
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.hbs$/,
+        use: 'handlebars-loader',
       },
     ],
   },

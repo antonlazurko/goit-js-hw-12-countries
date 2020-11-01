@@ -1,11 +1,22 @@
 body {
   display: flex;
-  background: green;
+  flex-direction: column;
 }
 .input_country {
-  color: red;
+  display: block;
+  width: 300px;
+  color: blue;
 }
 .flag {
   width: 100px;
   height: 100px;
+}
+.country_card {
+  display: block;
+  width: 307px;
+  background-color: teal;
+}
+.country-list {
+  display: block;
+  list-style-type: decimal;
 }
