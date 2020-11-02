@@ -2,21 +2,31 @@ body {
   display: flex;
   flex-direction: column;
 }
+.country_card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 308px;
+  background-color: teal;
+}
+.description {
+  display: block;
+  flex-direction: column;
+}
 .input_country {
   display: block;
   width: 300px;
   color: blue;
 }
 .flag {
-  width: 100px;
-  height: 100px;
-}
-.country_card {
   display: block;
-  width: 307px;
-  background-color: teal;
+  width: 150px;
+  height: 150px;
 }
+
 .country-list {
   display: block;
+  padding: 15px;
+  width: 310px;
   list-style-type: decimal;
 }

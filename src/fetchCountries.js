@@ -4,9 +4,7 @@ export default function fetchCountries(value) {
       if (response.ok) {
         return response.json();
       }
-      // else {
-      //   console.log('Whrong data');
-      // }
+      throw new Error(response.statusText);
     },
   );
 }

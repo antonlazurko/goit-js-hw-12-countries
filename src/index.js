@@ -10,66 +10,66 @@ import '@pnotify/core/dist/BrightTheme.css';
 const inputArea = document.createElement('input');
 inputArea.placeholder = 'Write country name';
 inputArea.classList.add('input_country');
+
+//--рендер разметки блока результата
+const fetchResultContainer = document.createElement('div');
+fetchResultContainer.classList.add('fetch-result-container');
 const body = document.querySelector('body');
-body.append(inputArea);
+body.append(inputArea, fetchResultContainer);
 
 //--вешаем слушатель на инпут и задержку вызова ф-ции
-inputArea.addEventListener('input', debounce(onSearch, 500));
+inputArea.addEventListener('input', debounce(onSearch, 1000));
 
 //--ф-ция получения значения инпута, чейнинга промиса и вызова соответствующей значению функции
 function onSearch(e) {
   const value = e.target.value;
   fetchCountries(value)
     .then(country => {
-      console.log(country);
       if (country.length < 2) {
-        console.log('<2' + country);
         renderCountryCard(country);
       } else if (2 <= country.length && country.length <= 10) {
-        console.log('<2&&10>');
         renderCountryList(country);
       } else if (country.length > 10) {
-        console.log('>10');
         noticeModal();
       }
     })
     .catch(error => {
-      console.log('------');
       console.log(error);
-      console.log('------');
-    });
+    })
+    .finally(() => (inputArea.value = ''));
 }
 
 //--ф-ция рендера карточки страны
 const renderCountryCard = function (country) {
-  const countryCard = document.createElement('div');
-  countryCard.classList.add('country_card');
-  body.append(countryCard);
   country.map(el => {
     const countryCardMarkup = template(el);
-    countryCard.innerHTML = countryCardMarkup;
+    fetchResultContainer.innerHTML = countryCardMarkup;
   });
 };
-//----
+
 //--ф-ция рендера списка стран от 2 до 10
 const renderCountryList = function (country) {
-  const countryList = document.createElement('ul');
-  countryList.classList.add('country-list');
-  body.append(countryList);
+  // рендер списка
+  const countryListMarkup = '<ul class="country-list"></ul>';
+  fetchResultContainer.innerHTML = countryListMarkup;
+  const countryList = document.querySelector('.country-list');
+  // рендер элементов списка
   country.map(el => {
     const carrentCountry = document.createElement('li');
-    carrentCountry.textContent = el.name;
     countryList.append(carrentCountry);
+    carrentCountry.textContent = el.name;
   });
 };
 //--функци уведомления о превышенном количестве результата
 const noticeModal = function () {
   const myNotice = notice({
-    text: "I'm a notice.",
+    text: 'Too many matches found. Please enter a more specific query!',
     type: 'notice',
     title: 'Attention!',
-    width: '300px',
-    minHeight: '16px',
+    addClass: 'notice-modal',
+    addModalClass: 'notice-modal',
+    width: '265px',
+    minHeight: '160px',
     shadow: true,
     delay: 8000,
     closer: true,
